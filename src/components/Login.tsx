@@ -1,43 +1,45 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
+import "../styles/Login.scss";
+import Button from "../components/Button";
 
 const Login: React.FC = () => {
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post("http://localhost:7048/api/auth/login", {
-                email,
-                password,
-            });
-            toast.success("Login successful!");
-            localStorage.setItem("token", response.data.token); // Store JWT token
-        } catch (error: any) {
-            toast.error(error.response?.data?.message || "Login failed! Check your credentials.");
-        }
-    };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:7048/api/auth/login", { email, password });
+      localStorage.setItem("authToken", response.data.token);
+      alert("Login successful!");
+    } catch (error) {
+      alert("Login failed!");
+    }
+  };
 
-    return (
+  return (
+    <div className="login-page">
+      <div className="login-card">
+        <h2>Login</h2>
         <form onSubmit={handleSubmit}>
-            <h2>Login</h2>
-            <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
-            <button type="submit">Login</button>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button label="Login" type="submit" onClick={() => {}} className="primaryButton" />
         </form>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Login;

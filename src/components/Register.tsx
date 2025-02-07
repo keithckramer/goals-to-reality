@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Button from "../components/Button";
 import "../styles/Register.scss";
@@ -15,6 +15,24 @@ const Register: React.FC = () => {
     birthday: "",
   });
 
+  const [states, setStates] = useState([]);
+
+  useEffect(() => {
+    const fetchStates = async () => {
+      try {
+        const response = await axios.get("https://localhost:7048/api/States");
+        console.log(response.data); // Log to confirm structure
+        setStates(response.data); // Adjust here if response.data has a nested structure
+      } catch (error) {
+        console.error("Error fetching states", error);
+      }
+    };
+    fetchStates();
+  }, []);
+  
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -22,11 +40,24 @@ const Register: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log(formData);
     try {
-      await axios.post("http://localhost:7048/api/auth/register", formData);
-      alert("Registration successful!");
-    } catch (error) {
-      alert("Registration failed!");
+      const response = await axios.post("https://localhost:7048/api/Auth/register", formData);
+      setSuccessMessage(response.data.message || "Registration successful!");
+      setErrorMessage("");
+      setFormData({
+        username: "",
+        email: "",
+        password: "",
+        address: "",
+        city: "",
+        stateId: "",
+        zip: "",
+        birthday: "",
+      });
+    } catch (error: any) {
+      setErrorMessage(error.response?.data?.message || "Registration failed!");
+      setSuccessMessage("");
     }
   };
 
@@ -34,6 +65,8 @@ const Register: React.FC = () => {
     <div className="register-page">
       <div className="register-card">
         <h2>Register</h2>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {successMessage && <p className="success-message">{successMessage}</p>}
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -70,9 +103,13 @@ const Register: React.FC = () => {
             value={formData.city}
             onChange={handleInputChange}
           />
-          <select name="stateId" value={formData.stateId} onChange={handleInputChange}>
+         <select name="stateId" value={formData.stateId} onChange={handleInputChange}>
             <option value="">Select State</option>
-            {/* Add state options here */}
+            {states.map((state: any) => (
+            <option key={state.id} value={state.id}>
+            {state.stateName}
+            </option>
+                ))}
           </select>
           <input
             type="text"
