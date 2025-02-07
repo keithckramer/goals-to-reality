@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/Button.scss"
 
 interface ButtonProps {
     onClick: () => void;
@@ -8,11 +9,12 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = ({ onClick, label, type = "button", className = "" }) => {
-    return (
-        <button type={type} className={className} onClick={onClick}>
-            {label}
-        </button>
-    );
+  return (
+      <button type={type} className={`button ${className}`} onClick={onClick}>
+          {label}
+      </button>
+  );
 };
+
 
 export default Button;
