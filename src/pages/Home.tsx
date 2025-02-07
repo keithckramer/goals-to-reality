@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Button from '../components/Button.tsx';
+import Button from '../components/Button';
 
 const Home: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
@@ -8,7 +8,7 @@ const Home: React.FC = () => {
 
   return (
     <div>
-      <h1>Welcome to Goal to Reality</h1>
+      <h1>Welcome to Goal to Realjkjkkkity</h1>
       <Button onClick={toggleForm} label={showForm ? 'Close Goal Form' : 'Create a Goal'} />
 
       {showForm && (

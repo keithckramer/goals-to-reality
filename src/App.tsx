@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles/App.scss';
-import Home from './pages/Home.tsx';
+import Home from '../src/components/Home';
 
 const App: React.FC = () => {
   return (
