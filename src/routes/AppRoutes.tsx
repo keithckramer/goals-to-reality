@@ -8,21 +8,23 @@ import PrivateRoute from "../utils/PrivateRoute";
 
 const AppRoutes: React.FC = () => {
     return (
-        <Router>
+
             <Routes>
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route
-                    path="/home"
-                    element={
-                        <PrivateRoute>
-                            <Home />
-                        </PrivateRoute>
-                    }
-                />
+            {/* Public routes */}
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+
+            {/* Private routes */}
+            <Route
+                path="/home"
+                element={
+                <PrivateRoute>
+                    <Home />
+                </PrivateRoute>
+            }/>
             </Routes>
-        </Router>
+
     );
 };
 

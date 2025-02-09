@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import "../styles/Login.scss";
 import Button from "../components/Button";
+import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
+  const navigate = useNavigate(); // Add this
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [formData, setFormData] = useState({
@@ -23,12 +23,18 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectEle
         console.log(formData);
         try {
           const response = await axios.post("https://localhost:7048/api/Auth/login", formData);
+          // Store token upon successful login
+          const token = response.data.token;
+          localStorage.setItem("token", token);
           setSuccessMessage(response.data.message || "Registration successful!");
           setErrorMessage("");
           setFormData({
             email: "",
             password: "",
           });
+          console.log("before home");
+          navigate("/home");
+          console.log("before home");
         } catch (error: any) {
           setErrorMessage(error.response?.data?.message || "Registration failed!");
           setSuccessMessage("");

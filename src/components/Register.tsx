@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Button from "../components/Button";
 import "../styles/Register.scss";
-
+import { useNavigate } from "react-router-dom";
 const Register: React.FC = () => {
   const [formData, setFormData] = useState({
     username: "",
@@ -16,13 +16,14 @@ const Register: React.FC = () => {
   });
 
   const [states, setStates] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchStates = async () => {
       try {
         const response = await axios.get("https://localhost:7048/api/States");
         console.log(response.data); // Log to confirm structure
         setStates(response.data); // Adjust here if response.data has a nested structure
+        
       } catch (error) {
         console.error("Error fetching states", error);
       }
@@ -43,6 +44,9 @@ const Register: React.FC = () => {
     console.log(formData);
     try {
       const response = await axios.post("https://localhost:7048/api/Auth/register", formData);
+      // Assuming the backend returns a token upon successful registration
+      const token = response.data.token;
+      localStorage.setItem("token", token);
       setSuccessMessage(response.data.message || "Registration successful!");
       setErrorMessage("");
       setFormData({
@@ -55,6 +59,7 @@ const Register: React.FC = () => {
         zip: "",
         birthday: "",
       });
+      navigate('/home');
     } catch (error: any) {
       setErrorMessage(error.response?.data?.message || "Registration failed!");
       setSuccessMessage("");
