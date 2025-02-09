@@ -27,3 +27,12 @@ body {
   }
 }
 
+.content {
+  padding-top: 64px; /* Matches header height */
+
+  @media (max-width: 768px) {
+    padding-top: 80px; /* Adjust for mobile view if needed */
+  }
+}
+
+

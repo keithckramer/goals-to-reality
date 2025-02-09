@@ -5,10 +5,11 @@ import Login from "../components/Login";
 import Register from "../components/Register";
 import Home from "../components/Home";
 import PrivateRoute from "../utils/PrivateRoute";
+import Header from "../components/Header";
 
 const AppRoutes: React.FC = () => {
     return (
-
+            
             <Routes>
             {/* Public routes */}
             <Route path="/" element={<LandingPage />} />

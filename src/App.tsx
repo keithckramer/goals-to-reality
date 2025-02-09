@@ -1,17 +1,20 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
-import AppRoutes from "../src/routes/AppRoutes";
+import { BrowserRouter } from "react-router-dom";
+import AppRoutes from "./routes/AppRoutes";
+import Header from "./components/Header"; // Import the Header component
 import "./styles/App.scss";
 
 const App: React.FC = () => {
   return (
-
+    <BrowserRouter>
       <div className="App">
-        <AppRoutes />
+        <Header /> {/* Always visible on all pages */}
+        <AppRoutes /> {/* Routes will render below the header */}
       </div>
-
+    </BrowserRouter>
   );
 };
 
 export default App;
+
 
