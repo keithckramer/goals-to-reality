@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "../components/LandingPage";
 import Login from "../components/Login";
 import Register from "../components/Register";
-import Home from "../components/Home";
+import Dashboard from "../pages/Dashboard";
 import PrivateRoute from "../utils/PrivateRoute";
-import Header from "../components/Header";
+import OnboardingPage from "../pages/OnBoarding";
 
 const AppRoutes: React.FC = () => {
     return (
@@ -15,13 +15,14 @@ const AppRoutes: React.FC = () => {
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/onboarding" element={<OnboardingPage />} />
 
             {/* Private routes */}
             <Route
-                path="/home"
+                path="/dashboard"
                 element={
                 <PrivateRoute>
-                    <Home />
+                    <Dashboard />
                 </PrivateRoute>
             }/>
             </Routes>

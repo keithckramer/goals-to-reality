@@ -59,7 +59,7 @@ const Register: React.FC = () => {
         zip: "",
         birthday: "",
       });
-      navigate('/home');
+      navigate('/Dashboard');
     } catch (error: any) {
       setErrorMessage(error.response?.data?.message || "Registration failed!");
       setSuccessMessage("");
