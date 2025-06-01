@@ -8,8 +8,6 @@ import { getDay } from "date-fns";
 import { enUS } from "date-fns/locale/en-US";
 
 // Your credentials
-// const CLIENT_ID = "1073102396561-0p13pm10n895tr4gor2b2opretuemkq5.apps.googleusercontent.com";
-// const API_KEY = "REMOVED";
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID!;
 const API_KEY = process.env.REACT_APP_GOOGLE_API_KEY!;
 
